@@ -1679,3 +1679,25 @@ h5.product-title {
 .view-documentation-sdds .doc-notes-data p {
   margin-bottom: 1em;
 }
+
+.sample-container {
+}
+.sample-container .product-name {
+  display: block;
+  width: 200px;
+  float: left;
+  padding-left: 10px;
+  font-weight: bold;
+}
+.sample-container .code-sample-group {
+  width: 500px;
+  display: inline-block;
+}
+
+.sample-container .code-sample-group .data {
+  margin-bottom: 20px;
+}
+.sample-container .code-sample-group .notes {
+  padding-top: 5px;
+  display: block;
+}
