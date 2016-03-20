@@ -1,0 +1,5 @@
+name = Shopping Cart Documentation Generator
+description = Searches and sends the appropriate documentation based on form input.
+package = PayPal
+core = 7.x
+
