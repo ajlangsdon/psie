@@ -1701,3 +1701,40 @@ h5.product-title {
   padding-top: 5px;
   display: block;
 }
+
+table.code-samples {
+
+}
+table.code-samples td {
+  padding: 10px;
+}
+table.code-samples td.product-name {
+
+}
+table.code-samples td.code-sample-group {
+  text-align: center;
+  width: 280px;
+}
+table.code-samples .prog-language {
+  display: inline-block;
+  width: 80px;
+  text-align: center;
+}
+table.code-samples .download-link {
+  border: 1px solid #ccc;
+  border-top: none;
+  border-bottom: none;
+  padding: 0 5px;
+  margin: 0 5px;
+  display: inline-block;
+  width: 80px;
+  text-align: center;
+}
+table.code-samples .date {
+  display: inline-block;
+  width: 80px;
+  text-align: center;
+}
+table.code-samples .breakspace {
+  padding-bottom: 5px;
+}
