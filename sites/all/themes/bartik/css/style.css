@@ -1737,4 +1737,6 @@ table.code-samples .date {
 }
 table.code-samples .breakspace {
   padding-bottom: 5px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
 }
