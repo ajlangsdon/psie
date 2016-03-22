@@ -9,6 +9,7 @@ function list_code_samples()
 
     //printvar($nodes);
     $code_sample_list = array();
+    $code_samples = array();
 
     foreach ($nodes as $node) {
         $tid = $node->field_product_family['und'][0]['tid'];
@@ -20,31 +21,44 @@ function list_code_samples()
         $formtype = field_get_items('node', $node, 'field_code_sample');
         $features = array();
         $x = 0;
+        $cat = array();
         foreach ($formtype as $itemid) {
             $item = field_collection_field_get_entity($itemid);
 
             //printvar($item);
 
-            $programming_language = $item->field_programming_language['und'][0]['tid'];
+            $programming_language = $item->field_programming_language['und'][$x]['tid'];
             $programming_language = tid_to_name($programming_language);
 
-            $file_attachment = $item->field_file_attachments['und'][0]['uri'];
+            $y = 0;
+//            /printvar($item->field_file_attachments);
+            foreach($item->field_file_attachments['und'] as $fa) {
+                //printvar($item);
+                //printvar($fa);
+                $csa[$family][$title][$programming_language]['file'][$y]['uri'] = $fa['uri'];
+                $csa[$family][$title][$programming_language]['file'][$y]['timestamp'] = $fa['timestamp'];
+                $csa[$family][$title][$programming_language]['file'][$y]['filename'] = $fa['filename'];
+                $y++;
+            }
+
+
+            $file_attachment = $item->field_file_attachments['und'][$x]['uri'];
             //$programming_language = tid_to_name($programming_language);
 
-            $code_sample_notes = $item->field_documentation_notes['und'][0]['value'];
-            $code_sample_date = $item->field_file_attachments['und'][0]['timestamp'];
+            $code_sample_notes = $item->field_documentation_notes['und'][$x]['value'];
+            $code_sample_date = $item->field_file_attachments['und'][$x]['timestamp'];
 
-            $code_sample_list[$family][$title][$x]['language'] = $programming_language;
-            $code_sample_list[$family][$title][$x]['file'] = $file_attachment;
-            $code_sample_list[$family][$title][$x]['notes'] = $code_sample_notes;
-            $code_sample_list[$family][$title][$x]['date'] = $code_sample_date;
-            $code_sample_list[$family][$title][$x]['nid'] = $nid;
+            //$code_sample_list[$family][$title][$programming_language][] = $programming_language;
+            $code_sample_list[$family][$title][$programming_language]['file'] = $file_attachment;
+            $code_sample_list[$family][$title][$programming_language]['notes'] = $code_sample_notes;
+            $code_sample_list[$family][$title][$programming_language]['date'] = $code_sample_date;
+            $code_sample_list[$family][$title][$programming_language]['nid'] = $nid;
 
-            $x++;
-
-            //printvar($item);
+            //$x++;
         }
     }
+
+    printvar($csa);
 
     // Output Display
     $output = "<div class='code-container'>";
@@ -55,27 +69,6 @@ function list_code_samples()
     foreach($code_sample_list as $key => $val) {
         $title = $key;
         $output .= "<h3 class='section-title'>" . $title . "</h3>";
-
-        /*foreach($val as $key2 => $row) {
-            $output .= "<div class='sample-container'>";
-            $output .= "<div class='product-name'>$key2</div>";
-            $output .= "<div class='code-sample-group'>";
-            foreach ($row as $ke32 => $val3) {
-                $language = $val3['language'];
-                $notes = $val3['notes'];
-                $file = $val3['file'];
-                $download_link = "<a href='http://google.com/'>Download</a>";
-
-                $output .= "<div class='data'>";
-                $output .= "$language | $download_link<br>";
-                if(!empty($notes)) {
-                    $output .= "<span class='notes'>Notes: $notes</span>";
-                }
-                $output .= "</div>";
-                //printvar($val3);
-            }
-            $output .= "</div>";
-        }*/
 
         $output .= "<table class='code-samples'><tbody>";
         $i = 1;
