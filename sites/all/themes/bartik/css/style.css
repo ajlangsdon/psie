@@ -1706,37 +1706,61 @@ table.code-samples {
 
 }
 table.code-samples td {
-  padding: 10px;
+  padding: 0;
 }
 table.code-samples td.product-name {
-
+  width: 200px;
 }
 table.code-samples td.code-sample-group {
   text-align: center;
-  width: 280px;
+  width: auto;
 }
-table.code-samples .prog-language {
-  display: inline-block;
-  width: 80px;
+table .code-sample-language {
+  width: 120px;
   text-align: center;
 }
+table.code-samples .prog-language {
+
+}
 table.code-samples .download-link {
-  border: 1px solid #ccc;
-  border-top: none;
-  border-bottom: none;
-  padding: 0 5px;
-  margin: 0 5px;
-  display: inline-block;
-  width: 80px;
   text-align: center;
 }
 table.code-samples .date {
-  display: inline-block;
-  width: 80px;
   text-align: center;
+  width: 100px;
 }
 table.code-samples .breakspace {
   padding-bottom: 5px;
   margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
+}
+
+table.code-samples table {
+  margin: 0;
+}
+table.code-samples table tr td {
+  border-bottom: none;
+}
+table.code-samples table tr.first td {
+  border-top: none;
+}
+
+table tr.even,
+table td.even {
+  background: #efefef;
+}
+table tr.odd,
+table td.odd {
+  background: #e5e5e5;
+}
+table.code-samples td.product-name,
+table.code-samples td.code-sample-language,
+table.code-samples td.download-link,
+table.code-samples td.date,
+table.code-samples td.product-names {
+  padding: 10px;
+}
+
+table.code-samples td.product-names {
+  width: 120px;
 }

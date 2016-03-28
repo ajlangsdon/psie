@@ -10,6 +10,7 @@ function list_code_samples()
     //printvar($nodes);
     $code_sample_list = array();
     $code_samples = array();
+    $csa = array();
 
     foreach ($nodes as $node) {
         $tid = $node->field_product_family['und'][0]['tid'];
@@ -58,7 +59,7 @@ function list_code_samples()
         }
     }
 
-    printvar($csa);
+    //printvar($csa);
 
     // Output Display
     $output = "<div class='code-container'>";
@@ -66,50 +67,79 @@ function list_code_samples()
 
     }
     // print headers & data
-    foreach($code_sample_list as $key => $val) {
+    foreach($csa as $key => $val) {
         $title = $key;
         $output .= "<h3 class='section-title'>" . $title . "</h3>";
 
-        $output .= "<table class='code-samples'><tbody>";
-        $i = 1;
+        $output .= "<table class='code-samples'>";
+        /*$output .= "<thead>";
+        $output .= "    <tr><th>Product</th><th>Language</th><th>Download File</th><th>Date Added</th>";
+        $output .= "</thead>";*/
+        $output .= "<tbody>";
+        $xyz = 1;
         global $base_url;
         global $user;
+        //printvar($val);
         foreach($val as $key2 => $row) {
-            if($i % 2 == 0) {
+            if($xyz % 2 == 0) {
                 $evenoddclass = 'even';
             }
             else {
                 $evenoddclass = 'odd';
             }
-            $i++;
+            $xyz++;
             $output .= "<tr class='$evenoddclass'>";
-            $output .= "<td class='product-name'>$key2</td>";
-            $output .= "<td class='code-sample-group'>";
-            $rowcount = count($row);
+            $output .= "<td class='product-names'>$key2</td>";
+
             $x = 1;
-            foreach ($row as $ke32 => $val3) {
-                $language = $val3['language'];
-                $notes = $val3['notes'];
-                $nid = $val3['nid'];
-                $file = $val3['file'];
-                $doc_url = uriToUrl($file);
-                $file = "<a href='/$doc_url' target='_blank' class='attachment-link'>$doc_url</a>";
-                $date = $val3['date'];
-                $date = date('m.d.Y', $date);
-                $download_link = "<a href='$base_url/$doc_url'>Download</a>";
-
-                $output .= "<span class='prog-language'>$language</span><span class='download-link'>$download_link</span><span class='date'>$date</span>";
-
-                if($user->uid) {
-                    $editlink = $base_url . "/node/" . $nid . "/edit";
-                    $output .= "<a href=$editlink>edit</a>";
+            $z = 1;
+            //printvar($row);
+            $output .= "<td><table>";
+            $z = 1;
+            foreach ($row as $language => $row3) {
+                $rowcount2 = count($row);
+                if($z % 2 == 0) {
+                    $evenoddclass = 'even';
                 }
-                $x++;
-                if($x <= $rowcount) {
-                    $output .= "<div class='breakspace'></div>";
+                else {
+                    $evenoddclass = 'odd';
                 }
+                $output .= "<tr class=''><td class='code-sample-language'><span class='prog-language'>$language</span></td>";
+                $z++;
+                $output .= "<td class='code-sample-data'>";
+                $output .= "<table>";
+                //printvar($row3);
+                foreach($row3 as $row4) {
+                    //printvar($row4);
+                    $t = 1;
+                    foreach($row4 as $row5) {
+                        if($t % 2 == 0) {
+                            $evenoddclass = 'even';
+                        }
+                        else {
+                            $evenoddclass = 'odd';
+                        }
+                        if($t == 1) {
+                            $firstclass = 'first';
+                        }
+                        else { $firstclass = ''; }
+                        $output .= "<tr class='$firstclass'>";
+                        $uri = $row5['uri'];
+                        $timestamp = $row5['timestamp'];
+                        $date = date('m.d.Y', $timestamp);
+                        $filename = $row5['filename'];
+                        $fileurl = uriToUrl($uri);
+                        $download_link = "<a href='$base_url/$fileurl'>$filename</a>";
+                        $output .= "<td class='download-link'>$download_link</td><td class='date'>$date</td>";
+                        $output .= "</tr>";
+                        $t++;
+                    }
+                }
+                $output .= "</tr></table>";
+                $output .= "</td>";
+
             }
-            $output .= "</td></tr>";
+            $output .= "</td></table>";
         }
         $output .= "</tbody></table>";
     }
